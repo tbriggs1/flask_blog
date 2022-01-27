@@ -1,5 +1,5 @@
-version: "3.3"
-servers:
+version: "3.8"
+services:
   app:
     build: .
     command: RUN waitress-serve --call 'flaskr:create_app'
