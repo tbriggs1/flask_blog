@@ -1,7 +1,5 @@
 #!/bin/bash
 
-app="docker.test"
+app="flaskblog"
 docker build -t ${app} .
-docker run -d -p 56733:80 \
-  --name=${flaskr} \
-  -v $PWD:/app ${flaskr}
+docker run -d -p 56733:80 --name=${app} -v $PWD:/app ${app}
