@@ -1,4 +1,7 @@
 #!/bin/bash
 
-export FLASK_APP=main.py
-export FLASK_ENV=development
+app="docker.test"
+docker build -t ${app} .
+docker run -d -p 56733:80 \
+  --name=${flaskr} \
+  -v $PWD:/app ${flaskr}
