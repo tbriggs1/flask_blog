@@ -2,6 +2,6 @@ version: "3.3"
 services:
   app:
     build: .
-    command: flask run
+    command: flask run --host=0.0.0.0
     ports:
       - "5550:8080"
