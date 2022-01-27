@@ -3,5 +3,5 @@ ADD . /python-flask
 WORKDIR /python-flask
 RUN pip install -r requirements.txt
 RUN export FLASK_APP=flaskr
-RUN flask run
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 
