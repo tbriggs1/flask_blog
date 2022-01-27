@@ -1,0 +1,7 @@
+version: "3.8"
+servers:
+  app:
+    build: .
+    command: RUN waitress-serve --call 'flaskr:create_app'
+    ports:
+      - "8080:8080"
