@@ -2,5 +2,5 @@ FROM python:3.9.1
 ADD . /python-flask
 WORKDIR /python-flask
 RUN pip install -e .
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "flask", "run", "--host=0.0.0.0"]
 
