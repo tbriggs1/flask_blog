@@ -1,5 +1,5 @@
 app:
-  working_dir: ./app
+  working_dir: /home/web/flask/flask_blog/app
   build: .
   command: python -u app.py
   ports:
