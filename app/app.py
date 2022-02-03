@@ -1,53 +1,28 @@
-import os
-from flask import Flask, request, jsonify
-from flask_pymongo import PyMongo
+from flask import Flask, jsonify
+import pymongo
+from pymongo import MongoClient
 
-application = Flask(__name__)
+app = Flask(__name__)
 
-application.config["MONGO_URI"] = 'mongodb://' + os.environ['MONGODB_USERNAME'] + ':' + os.environ['MONGODB_PASSWORD'] + '@' + os.environ['MONGODB_HOSTNAME'] + ':27017/' + os.environ['MONGODB_DATABASE']
+def get_db():
+    client = MongoClient(host='test_mongodb',
+                         port=27017, 
+                         username='root', 
+                         password='pass',
+                        authSource="admin")
+    db = client["animal_db"]
+    return db
 
-mongo = PyMongo(application)
-db = mongo.db
+@app.route('/')
+def ping_server():
+    return "Welcome to the world of animals."
 
-@application.route('/')
-def index():
-    return jsonify(
-        status=True,
-        message='Welcome to the Dockerized Flask MongoDB app!'
-    )
+@app.route('/animals')
+def get_stored_animals():
+    db = get_db()
+    _animals = db.animal_tb.find()
+    animals = [{"id": animal["id"], "name": animal["name"], "type": animal["type"]} for animal in _animals]
+    return jsonify({"animals": animals})
 
-@application.route('/todo')
-def todo():
-    _todos = db.todo.find()
-
-    item = {}
-    data = []
-    for todo in _todos:
-        item = {
-            'id': str(todo['_id']),
-            'todo': todo['todo']
-        }
-        data.append(item)
-
-    return jsonify(
-        status=True,
-        data=data
-    )
-
-@application.route('/todo', methods=['POST'])
-def createTodo():
-    data = request.get_json(force=True)
-    item = {
-        'todo': data['todo']
-    }
-    db.todo.insert_one(item)
-
-    return jsonify(
-        status=True,
-        message='To-do saved successfully!'
-    ), 201
-
-if __name__ == "__main__":
-    ENVIRONMENT_DEBUG = os.environ.get("APP_DEBUG", True)
-    ENVIRONMENT_PORT = os.environ.get("APP_PORT", 5000)
-    application.run(host='0.0.0.0', port=ENVIRONMENT_PORT, debug=ENVIRONMENT_DEBUG)
+if __name__=='__main__':
+    app.run(host="0.0.0.0", port=5000)
