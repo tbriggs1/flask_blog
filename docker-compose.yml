@@ -1,7 +1,7 @@
 app:
-  working_dir: /home/web/flask/flask_blog/blogs
-  build: .
-  command: python app.py
+  build:
+    context: ./blogs
+    dockerfile: Dockerfile
   ports:
     - "5000:5000"
   volumes:
