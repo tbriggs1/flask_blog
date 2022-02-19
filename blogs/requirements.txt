@@ -3,3 +3,4 @@ Flask
 Flask-Migrate
 Flask-RESTful
 Flask-SQLAlchemy
+psycopg2

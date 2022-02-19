@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 api = Api(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:bigjoe11@localhost:5432/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:bigjoe11@51.89.220.72:5432/postgres'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -35,7 +35,7 @@ class Blog(Resource):
     def post(self, id):
         if request.json:
             data = request.get_json()
-            new_blog = BlogModel(id=id, name=data['name'], description=['model'])
+            new_blog = BlogModel(id=id, name=data['name'], description=data['description'])
             db.session.add(new_blog)
             db.session.commit()
             return {"message": f"blog {new_blog.name} has been created successfully"}
@@ -69,8 +69,13 @@ class Blogs(Resource):
 
         return {"count": len(results), "blogs": results}
 
+class hello(Resource):
+    def get(self):
+        return "<h1>Hello World</h1>"
+
+api.add_resource(hello, "/hello")
 api.add_resource(Blogs, "/blogs")
 api.add_resource(Blog, "/blog/<id>")  # http://localhost/blog/name
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=True, host="0.0.0.0")
