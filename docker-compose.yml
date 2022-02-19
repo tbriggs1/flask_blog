@@ -1,19 +1,22 @@
-app:
-  build:
-    context: ./blogs
-    dockerfile: Dockerfile
-  ports:
-    - "5000:5000"
-  volumes:
-    - .:/app
-  links:
-    - db
-db:
-  image: postgres
-  restart: always
-  environment:
-    POSTGRES_PASSWORD: bigjoe11
-  volumes:
-    - ./postgres-blog-data:/var/lib/postgresql/data
-  ports:
-    - "5432:5432"
+version: '3.8'
+
+services:
+  web:
+    build: ./blogs
+    command: python manage.py run -h 0.0.0.0
+    volumes:
+      - ./blogs:/usr/src/app/
+    ports:
+      - 5000:5000
+    env_file:
+      - ./.env.dev
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: bigjoe11
+    volumes:
+      - ./postgres-blog-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
