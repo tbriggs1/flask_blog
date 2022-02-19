@@ -11,7 +11,7 @@ app:
 db:
   image: postgres
   restart: always
-  enviornment:
+  environment:
     POSTGRES_PASSWORD: bigjoe11
   volumes:
     - ./postgres-blog-data:/var/lib/postgresql/data
