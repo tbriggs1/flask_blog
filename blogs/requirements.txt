@@ -1,0 +1,6 @@
+flask
+Flask-RESTful
+black
+psycopg2
+Flask-SQLAlchemy
+Flask-Migrate

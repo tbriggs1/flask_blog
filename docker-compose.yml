@@ -1,21 +1,19 @@
 app:
-  working_dir: /home/web/flask/flask_blog/app
+  working_dir: /home/web/flask/flask_blog/blogs
   build: .
-  command: python -u app.py
+  command: python app.py
   ports:
     - "5000:5000"
   volumes:
     - .:/app
   links:
-    - db
+    -db
 db:
-  image: mongo:latest
-  hostname: test_mongodb
-  environment:
-    - MONGO_INITDB_DATABASE=animal_db
-    - MONGO_INITDB_ROOT_USERNAME=root
-    - MONGO_INITDB_ROOT_PASSWORD=pass
+  image: postgres
+  restart: always
+  enviornment:
+    POSTGRES_PASSWORD: bigjoe11
   volumes:
-    - ./app/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
-  ports:
-    - 27017:27017
+    - ./postgres-blog-data:/var/lib/postgresql/data
+  port:
+    - 5432:5432
