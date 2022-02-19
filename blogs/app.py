@@ -78,4 +78,4 @@ api.add_resource(Blogs, "/blogs")
 api.add_resource(Blog, "/blog/<id>")  # http://localhost/blog/name
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True, host="0.0.0.0")
+    app.run(port="5000", host="0.0.0.0")
