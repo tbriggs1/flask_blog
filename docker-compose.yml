@@ -7,7 +7,7 @@ app:
   volumes:
     - .:/app
   links:
-    -db
+    - db
 db:
   image: postgres
   restart: always
