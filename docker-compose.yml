@@ -15,5 +15,5 @@ db:
     POSTGRES_PASSWORD: bigjoe11
   volumes:
     - ./postgres-blog-data:/var/lib/postgresql/data
-  port:
-    - 5432:5432
+  ports:
+    - "5432:5432"
