@@ -12,4 +12,4 @@ RUN pip install -r requirements.txt
 # copy project
 COPY . /usr/src/app
 
-RUN python app.py
+CMD ['python', 'app.py']
