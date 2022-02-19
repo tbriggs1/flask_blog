@@ -1,9 +1,9 @@
 services:
-  web:
-    build: ./blogs
+  blogs:
+    build: ./flask_blog/blogs
     command: python manage.py run -h 0.0.0.0
     volumes:
-      - ./blogs:/usr/src/app/
+      - ./flask_blog/blogs:/usr/src/app/
     ports:
       - 5000:5000
     env_file:
