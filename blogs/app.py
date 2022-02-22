@@ -31,7 +31,7 @@ class Blog(Resource):
     # @cross_origin(origin='localhost', headers=['Content-Type','Authorization'])
     def get(self, id):
         blog = BlogModel.query.get_or_404(id)
-        result = { "name": blog.name, "description": blog.description}
+        result = { "id": id, "name": blog.name, "description": blog.description}
 
         return {"blog": result}
 
@@ -66,6 +66,7 @@ class Blogs(Resource):
         blogs = BlogModel.query.all()
         results = [
             {
+                "id": blog.id,
                 "name": blog.name,
                 "description": blog.description,
             } for blog in blogs]
