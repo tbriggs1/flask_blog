@@ -4,3 +4,4 @@ Flask-Migrate
 Flask-RESTful
 Flask-SQLAlchemy
 psycopg2
+flask-cors

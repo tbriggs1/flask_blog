@@ -2,13 +2,15 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, reqparse
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
+from flask_cors import CORS
 
 app = Flask(__name__)
 api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:bigjoe11@51.89.220.72:5432/postgres'
+app.config['CORS_HEADERS'] = 'Content-Type'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+CORS(app)
 
 class BlogModel(db.Model):
     __tablename__ = 'blogs'
@@ -26,6 +28,7 @@ class BlogModel(db.Model):
         return f"<Blog {self.name}>"
 
 class Blog(Resource):
+    # @cross_origin(origin='localhost', headers=['Content-Type','Authorization'])
     def get(self, id):
         blog = BlogModel.query.get_or_404(id)
         result = { "name": blog.name, "description": blog.description}
