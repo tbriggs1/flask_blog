@@ -21,6 +21,18 @@ services:
     ports:
       - 5432:5432
 
+  frontend:
+    container_name: frontend
+    build: ./devops_blog_frontend
+    volumes:
+      - './:/app'
+      - '/app/node_modules'
+    ports:
+      - 3000:3000
+    stdin_open: true
+    command: npm start
+
+
 volumes:
   postgres_data:
 
